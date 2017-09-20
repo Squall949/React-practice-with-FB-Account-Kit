@@ -12,7 +12,7 @@
     "server/node_modules"
   ],
   "scripts": {
-	"heroku-postbuild": "cd server/ && npm install"
+	"heroku-prebuild": "cd server/ && npm install",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
