@@ -11,6 +11,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+//temp use
+app.use('/static', express.static(__dirname + '/public'));
   
 var csrf_guid = Guid.raw();
 const account_kit_api_version = 'v1.1';
@@ -27,7 +29,7 @@ function loadLoginSuccess() {
     return fs.readFileSync(path.resolve(__dirname, '../public', 'login_success.html')).toString();
   }
   
-app.get('/', function(request, response){
+/*app.get('/', function(request, response){
     var view = {
       appId: app_id,
       csrf: csrf_guid,
@@ -36,11 +38,11 @@ app.get('/', function(request, response){
   
     var html = Mustache.to_html(loadLogin(), view);
     response.send(html);
-});
+});*/
 
 app.post('/login_success', function(request, response){
       // CSRF check
-      if (request.body.csrf === csrf_guid) {
+      //if (request.body.csrf === csrf_guid) {
         var app_access_token = ['AA', app_id, app_secret].join('|');
         var params = {
           grant_type: 'authorization_code',
@@ -70,12 +72,12 @@ app.post('/login_success', function(request, response){
             response.send(html);
           });
         });
-      } 
+      /*} 
       else {
         // login failed
         response.writeHead(200, {'Content-Type': 'text/html'});
         response.end("Something went wrong. :( ");
-      }
+      }*/
 });
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
